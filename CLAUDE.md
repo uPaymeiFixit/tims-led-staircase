@@ -84,3 +84,11 @@ int xyToIndex(int step, int pos) {
 ## Library
 
 - **FastLED** (WS2815 uses WS2812B protocol, single-wire 800kHz)
+
+## Example Code
+
+See [example.ino](example.ino) for a complete motion-activated animation demonstrating:
+- Horizontal sweeps (left-to-right on, right-to-left off)
+- Vertical sweeps (top-to-bottom on, bottom-to-top off)
+- Proper use of `xyToIndex()` for coordinate mapping
+- Safe LED addressing with `setLedSafe()` for virtual positions
