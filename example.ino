@@ -99,17 +99,6 @@ int xyToIndex(int step, int pos) {
     return (step & 1) ? start + (LEDS_PER_STEP[step] - 1 - adjustedPos) : start + adjustedPos;
 }
 
-/**
- * Safely set an LED color, handling virtual positions.
- *
- * @param index LED index (may be NUM_LEDS for virtual positions)
- * @param color Color to set
- */
-void setLedSafe(int index, CRGB color) {
-    if (index < NUM_LEDS) {
-        leds[index] = color;
-    }
-}
 
 // ============================================================================
 // Animation Functions
@@ -126,10 +115,9 @@ void sweepLeftToRight() {
         // Light up this column on all steps
         for (int step = 0; step < STEP_COUNT; step++) {
             int index = xyToIndex(step, pos);
-            setLedSafe(index, animationColor);
+            leds[index] = animationColor;
         }
-        FastLED.show();
-        delay(HORIZONTAL_DELAY_MS);
+        FastLED.delay(HORIZONTAL_DELAY_MS);
     }
 }
 
@@ -144,7 +132,7 @@ void sweepRightToLeft() {
         // Turn off this column on all steps
         for (int step = 0; step < STEP_COUNT; step++) {
             int index = xyToIndex(step, pos);
-            setLedSafe(index, CRGB::Black);
+            leds[index] = CRGB::Black;
         }
         FastLED.show();
         delay(HORIZONTAL_DELAY_MS);
@@ -162,10 +150,9 @@ void sweepTopToBottom() {
         // Light up entire step
         for (int pos = 0; pos < MAX_LEDS_PER_STEP; pos++) {
             int index = xyToIndex(step, pos);
-            setLedSafe(index, animationColor);
+            leds[index] = animationColor;
         }
-        FastLED.show();
-        delay(VERTICAL_DELAY_MS);
+        FastLED.delay(VERTICAL_DELAY_MS);
     }
 }
 
@@ -180,7 +167,7 @@ void sweepBottomToTop() {
         // Turn off entire step
         for (int pos = 0; pos < MAX_LEDS_PER_STEP; pos++) {
             int index = xyToIndex(step, pos);
-            setLedSafe(index, CRGB::Black);
+            leds[index] = CRGB::Black;
         }
         FastLED.show();
         delay(VERTICAL_DELAY_MS);
@@ -211,32 +198,22 @@ void runAnimationSequence() {
 // ============================================================================
 
 void setup() {
-    // Initialize serial for debugging
-    Serial.begin(115200);
-    Serial.println("LED Staircase Example Starting...");
-
     // Initialize PIR sensor pin
     pinMode(PIR_PIN, INPUT);
 
     // Initialize FastLED
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
-    FastLED.setBrightness(128);  // 50% brightness (0-255)
+    FastLED.setBrightness(255);
 
     // Start with all LEDs off
     FastLED.clear();
     FastLED.show();
-
-    Serial.println("Ready. Waiting for motion...");
 }
 
 void loop() {
     // Check PIR sensor for motion
     if (digitalRead(PIR_PIN) == HIGH) {
-        Serial.println("Motion detected! Running animation...");
-
         runAnimationSequence();
-
-        Serial.println("Animation complete.");
 
         // Small delay to prevent immediate re-trigger
         delay(500);
