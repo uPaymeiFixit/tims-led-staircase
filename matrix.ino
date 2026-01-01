@@ -252,15 +252,13 @@ void runMatrixAnimation()
       drawRaindrop(&raindrops[i]);
     }
 
-    FastLED.show();
-
     // Check if animation duration has elapsed
     if (elapsed >= ANIMATION_DURATION_MS)
     {
       animationComplete = true;
     }
 
-    delay(FRAME_DELAY_MS);
+    FastLED.delay(FRAME_DELAY_MS); // Use FastLED.delay for dithering during animation
   }
 
   // Fade out effect - gradually dim all LEDs
@@ -270,8 +268,7 @@ void runMatrixAnimation()
     {
       leds[i].nscale8(250); // Reduce by ~2%
     }
-    FastLED.show();
-    delay(20);
+    FastLED.delay(20); // Use FastLED.delay for dithering during fade out
   }
 
   // Ensure all LEDs are off
