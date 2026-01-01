@@ -85,6 +85,10 @@ int xyToIndex(int step, int pos) {
 
 - **FastLED** (WS2815 uses WS2812B protocol, single-wire 800kHz)
 
+## Code Guidelines
+
+- **No Serial debugging:** Do not include `Serial.begin()`, `Serial.print()`, or any Serial output unless explicitly requested. The serial port is not monitored.
+
 ## Example Code
 
 See [example.ino](example.ino) for a complete motion-activated animation demonstrating:
