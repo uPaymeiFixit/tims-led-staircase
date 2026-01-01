@@ -29,9 +29,9 @@
 // Animation Timing
 // ============================================================================
 
-#define STEP_ON_INTERVAL_MS 1000 // 1 second between each step turning on
-#define STEP_HOLD_MS 2000        // 2 seconds on before fading
-#define STEP_FADE_MS 3000        // 3 seconds to fade off
+#define STEP_ON_INTERVAL_MS 650 // 1 second between each step turning on
+#define STEP_HOLD_MS 1500       // 2 seconds on before fading
+#define STEP_FADE_MS 1000       // 3 seconds to fade off
 
 // ============================================================================
 // Staircase Layout Constants
@@ -51,7 +51,7 @@ const int STEP_START[] = {0, 64, 128, 199, 270, 341, 412, 483, 554, 625, 696, 76
 // ============================================================================
 
 // Warm white color (similar to incandescent bulb, ~2700K)
-const CRGB WARM_WHITE = CRGB(255, 180, 100);
+const CRGB WARM_WHITE = CRGB(155, 64, 10);
 
 // ============================================================================
 // Global Variables
