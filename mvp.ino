@@ -219,15 +219,13 @@ void runCascadingAnimation()
       }
     }
 
-    FastLED.show();
-
     // Check if animation is complete
     if (elapsed >= animationDuration || !anyStepActive)
     {
       animationComplete = true;
     }
 
-    delay(20); // Update at ~50 FPS for smooth fading
+    FastLED.delay(16); // 60 FPS with dithering enabled
   }
 
   // Ensure all LEDs are off
