@@ -88,10 +88,13 @@ int xyToIndex(int step, int pos) {
 ## Code Guidelines
 
 - **No Serial debugging:** Do not include `Serial.begin()`, `Serial.print()`, or any Serial output unless explicitly requested. The serial port is not monitored.
+- **Use FastLED.delay():** Use `FastLED.delay()` instead of `delay()` or `FastLED.show()` when we want to enable dithering for smoother color output. Continue using normal `delay()` when delaying when lights are not animating, or `FastLED.show()` when turning LEDs off.
+- **Target framerate:** Aim for 60 frames per second (16ms delay between frames).
 
 ## Example Code
 
 See [example.ino](example.ino) for a complete motion-activated animation demonstrating:
+
 - Horizontal sweeps (left-to-right on, right-to-left off)
 - Vertical sweeps (top-to-bottom on, bottom-to-top off)
 - Proper use of `xyToIndex()` for coordinate mapping
